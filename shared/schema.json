@@ -1,0 +1,46 @@
+{
+  "tick_schema": {
+    "description": "Real-time market tick data format",
+    "version": "1.0",
+    "fields": {
+      "symbol": {
+        "type": "string",
+        "description": "Stock ticker symbol (e.g., AAPL)",
+        "example": "AAPL"
+      },
+      "price": {
+        "type": "double",
+        "description": "Last traded price",
+        "example": 150.25
+      },
+      "volume": {
+        "type": "uint64",
+        "description": "Volume of the last trade",
+        "example": 1000
+      },
+      "bid": {
+        "type": "double",
+        "description": "Current best bid price",
+        "example": 150.24
+      },
+      "ask": {
+        "type": "double",
+        "description": "Current best ask price",
+        "example": 150.26
+      },
+      "timestamp": {
+        "type": "uint64",
+        "description": "Unix timestamp in nanoseconds",
+        "example": 1713897600000000000
+      }
+    },
+    "example": {
+      "symbol": "AAPL",
+      "price": 150.25,
+      "volume": 1000,
+      "bid": 150.24,
+      "ask": 150.26,
+      "timestamp": 1713897600000000000
+    }
+  }
+}

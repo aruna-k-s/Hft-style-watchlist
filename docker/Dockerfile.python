@@ -1,0 +1,21 @@
+# Python signal engine runtime
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y \
+    libzmq3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app/python_engine
+
+# Copy source code
+COPY python_engine/ .
+COPY shared/ /app/shared/
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Create output directory for watchlist.json
+RUN mkdir -p /app/output
+
+# Run the Python engine
+CMD ["python", "main.py"]
