@@ -20,8 +20,8 @@ void signal_handler(int signal) {
 
 int main() {
     // Register signal handlers
-    std::signal(SIGINT, signal_handler);
-    std::signal(SIGTERM, signal_handler);
+    signal(SIGINT, signal_handler);
+    signal(SIGTERM, signal_handler);
 
     std::cout << "=== HFT-Style Watchlist: C++ Ingestion Engine ===" << std::endl;
     std::cout << "[INGESTION] Starting tick simulator and publisher..." << std::endl;

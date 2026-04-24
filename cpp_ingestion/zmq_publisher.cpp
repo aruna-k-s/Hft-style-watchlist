@@ -3,15 +3,8 @@
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
-
-struct Tick {
-    std::string symbol;
-    double price;
-    uint64_t volume;
-    double bid;
-    double ask;
-    uint64_t timestamp;
-};
+#include <unordered_map>
+#include "tick.h"
 
 class ZeroMQPublisher {
 private:

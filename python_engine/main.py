@@ -12,7 +12,7 @@ import sys
 import os
 from datetime import datetime
 from collections import defaultdict
-from typing import Dict, Optional
+from typing import Dict, Optional, List, Tuple
 
 from config import *
 from signal_engine import SignalEngine
@@ -38,15 +38,20 @@ class WatchlistEngine:
         self.last_watchlist_time = 0
         self.should_exit = False
         
+        # Phase 2: Stability tracking
+        self.stability_tracker: Dict[str, int] = defaultdict(int)  # symbol -> consecutive cycles in top N
+        
         # Register signal handlers for graceful shutdown
         signal.signal(signal.SIGINT, self._signal_handler)
         signal.signal(signal.SIGTERM, self._signal_handler)
         
         print("=" * 80)
-        print("   HFT-Style Watchlist: Python Signal Engine")
+        print("   HFT-Style Watchlist: Phase 2 Enhanced Signal Engine")
         print("=" * 80)
         print(f"[PYTHON] Connecting to ZeroMQ at {ZMQ_ENDPOINT}...")
         time.sleep(1)
+        print(f"[PYTHON] Phase 2 Features: Rolling Windows, Normalization, Time-Based Scoring")
+        print(f"[PYTHON] Stability Filter: {self.config_module.STABILITY_CYCLES_REQUIRED} cycles required")
         print(f"[PYTHON] Waiting for tick data...")
         print("─" * 80)
 
@@ -149,6 +154,7 @@ class WatchlistEngine:
     def _update_watchlist(self) -> Optional[Dict]:
         """
         Compute watchlist by aggregating signals and scores for all tracked symbols.
+        Applies Phase 2 filters: liquidity and stability.
         
         Returns:
             Dictionary with watchlist data, or None if insufficient data
@@ -157,17 +163,108 @@ class WatchlistEngine:
         
         for symbol in self.signal_engine.get_tracked_symbols():
             signals = self.signal_engine.compute_all_signals(symbol)
-            stock_data[symbol] = {'signals': signals}
+            if signals is not None:
+                # Apply liquidity filter
+                if self._passes_liquidity_filter(signals):
+                    stock_data[symbol] = {'signals': signals}
         
-        # Get top stocks
-        watchlist = self.scoring_engine.get_top_watchlist(stock_data, WATCHLIST_SIZE)
+        # Get ranked stocks
+        ranked = self.scoring_engine.rank_stocks(stock_data)
+        
+        # Apply stability filter
+        stable_watchlist = self._apply_stability_filter(ranked)
+        
+        # Update stability tracker
+        self._update_stability_tracker(ranked)
         
         return {
             'timestamp': datetime.utcnow().isoformat(),
-            'watchlist': watchlist,
+            'watchlist': stable_watchlist,
             'total_symbols_tracked': len(self.signal_engine.get_tracked_symbols()),
+            'total_symbols_filtered': len(stock_data),
             'total_ticks_processed': self.tick_count
         }
+
+    def _passes_liquidity_filter(self, signals: Dict[str, float]) -> bool:
+        """
+        Check if stock passes liquidity and tradability filters.
+        
+        Args:
+            signals: Computed signals for the stock
+            
+        Returns:
+            True if stock passes all filters
+        """
+        # Spread filter
+        if signals['spread'] > self.config_module.MAX_SPREAD_THRESHOLD:
+            return False
+        
+        # Volume filter (check recent average volume)
+        recent_volumes = [tick['volume'] for tick in list(self.signal_engine.tick_buffer.get(signals.get('symbol', ''), []))[-20:]]
+        if recent_volumes:
+            avg_volume = sum(recent_volumes) / len(recent_volumes)
+            if avg_volume < self.config_module.MIN_VOLUME_THRESHOLD:
+                return False
+        
+        return True
+
+    def _apply_stability_filter(self, ranked: List[Tuple[str, float, str, Dict]]) -> List[Dict]:
+        """
+        Apply stability filter to ensure stocks have been consistently ranked highly.
+        
+        Args:
+            ranked: List of (symbol, score, reason, signals) tuples
+            
+        Returns:
+            Filtered watchlist that meets stability requirements
+        """
+        stable_stocks = []
+        top_n_symbols = {symbol for symbol, _, _, _ in ranked[:self.config_module.STABILITY_TOP_N]}
+        
+        for symbol, score, reason, signals in ranked[:self.config_module.WATCHLIST_SIZE]:
+            if self.stability_tracker[symbol] >= self.config_module.STABILITY_CYCLES_REQUIRED:
+                entry = {
+                    'rank': len(stable_stocks) + 1,
+                    'symbol': symbol,
+                    'score': round(score, 2),
+                    'reason': reason,
+                    'signals': {
+                        'momentum': round(signals['momentum'], 6),
+                        'volume_spike': round(signals['volume_spike'], 2),
+                        'vwap': round(signals['vwap'], 4),
+                        'vwap_deviation': round(signals['vwap_deviation'], 6),
+                        'spread': round(signals['spread'], 4),
+                        'current_price': round(signals['current_price'], 2),
+                        'bid': round(signals.get('bid', signals['current_price'] - signals['spread'] / 2), 2),
+                        'ask': round(signals.get('ask', signals['current_price'] + signals['spread'] / 2), 2),
+                    }
+                }
+                
+                # Include normalized features if available
+                if 'momentum_normalized' in signals:
+                    entry['signals']['momentum_normalized'] = round(signals['momentum_normalized'], 2)
+                    entry['signals']['volume_spike_normalized'] = round(signals['volume_spike_normalized'], 2)
+                    entry['signals']['vwap_deviation_normalized'] = round(signals['vwap_deviation_normalized'], 2)
+                
+                stable_stocks.append(entry)
+        
+        return stable_stocks
+
+    def _update_stability_tracker(self, ranked: List[Tuple[str, float, str, Dict]]) -> None:
+        """
+        Update the stability tracker based on current ranking.
+        
+        Args:
+            ranked: Current ranked list of stocks
+        """
+        top_n_symbols = {symbol for symbol, _, _, _ in ranked[:self.config_module.STABILITY_TOP_N]}
+        
+        # Increment counters for stocks in top N, reset others
+        for symbol in self.signal_engine.get_tracked_symbols():
+            if symbol in top_n_symbols:
+                self.stability_tracker[symbol] += 1
+            else:
+                self.stability_tracker[symbol] = 0
 
     def _save_watchlist(self, watchlist_data: Dict) -> None:
         """
@@ -198,13 +295,14 @@ class WatchlistEngine:
         """
         watchlist = watchlist_data['watchlist']
         if not watchlist:
-            print("[PYTHON] Watchlist is empty (insufficient data)")
+            print("[PYTHON] Watchlist is empty (insufficient data or no stable stocks)")
             return
         
         output = self.scoring_engine.format_watchlist_text(watchlist)
         print(output)
         print(f"[STATUS] {watchlist_data['total_symbols_tracked']} symbols tracked, "
-              f"{watchlist_data['total_ticks_processed']} ticks processed")
+              f"{watchlist_data['total_symbols_filtered']} passed filters, "
+              f"{len(watchlist)} stable stocks in watchlist")
         print(f"[TIMESTAMP] {watchlist_data['timestamp']}")
         print("─" * 80)
 

@@ -4,15 +4,7 @@
 #include <chrono>
 #include <cmath>
 #include <unordered_map>
-
-struct Tick {
-    std::string symbol;
-    double price;
-    uint64_t volume;
-    double bid;
-    double ask;
-    uint64_t timestamp;
-};
+#include "tick.h"
 
 class TickSimulator {
 private:
