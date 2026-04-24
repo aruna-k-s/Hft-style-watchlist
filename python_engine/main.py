@@ -17,6 +17,11 @@ from typing import Dict, Optional, List, Tuple
 from config import *
 from signal_engine import SignalEngine
 from scoring import ScoringEngine
+from strategy import StrategyEngine
+from risk_manager import RiskManager
+from execution_engine import ExecutionEngine
+from portfolio import PortfolioManager
+from logger import TradeLogger
 
 
 class WatchlistEngine:
@@ -24,6 +29,13 @@ class WatchlistEngine:
         self.config_module = sys.modules['config']
         self.signal_engine = SignalEngine(self.config_module)
         self.scoring_engine = ScoringEngine(self.config_module)
+        
+        # Phase 3: Initialize trading components
+        self.portfolio = PortfolioManager(self.config_module.INITIAL_CASH)
+        self.logger = TradeLogger(self.config_module.LOG_CSV_FILE, self.config_module.LOG_JSON_FILE)
+        self.strategy = StrategyEngine(self.config_module)
+        self.risk_manager = RiskManager(self.config_module, self.portfolio)
+        self.execution_engine = ExecutionEngine(self.config_module, self.portfolio, self.risk_manager)
         
         # Ensure output directory exists
         self._ensure_output_directory()
@@ -46,8 +58,11 @@ class WatchlistEngine:
         signal.signal(signal.SIGTERM, self._signal_handler)
         
         print("=" * 80)
-        print("   HFT-Style Watchlist: Phase 2 Enhanced Signal Engine")
+        print("   HFT-Style Watchlist: Phase 3 Enhanced Trading System")
         print("=" * 80)
+        print(f"[PHASE 3] Paper Trading Mode: {self.config_module.PAPER_MODE}")
+        print(f"[PHASE 3] Initial Cash: ${self.config_module.INITIAL_CASH:,.2f}")
+        print(f"[PHASE 3] Risk Limits: Max Position {self.config_module.RISK_MAX_POSITION_SIZE*100:.1f}%, Daily Loss {self.config_module.RISK_DAILY_LOSS_LIMIT*100:.1f}%")
         print(f"[PYTHON] Connecting to ZeroMQ at {ZMQ_ENDPOINT}...")
         time.sleep(1)
         print(f"[PYTHON] Phase 2 Features: Rolling Windows, Normalization, Time-Based Scoring")
@@ -306,6 +321,91 @@ class WatchlistEngine:
         print(f"[TIMESTAMP] {watchlist_data['timestamp']}")
         print("─" * 80)
 
+    def _run_trading_pipeline(self, watchlist: List[Dict]) -> None:
+        """
+        Run the Phase 3 trading pipeline: strategy → risk → execution → portfolio → logging.
+        
+        Args:
+            watchlist: Current watchlist from Phase 2
+        """
+        print(f"[TRADING] Running pipeline with {len(watchlist)} watchlist items")
+        
+        # Update strategy with current positions
+        self.strategy.update_positions(self.portfolio.positions)
+        
+        # Step 1: Generate trade signals (Strategy)
+        signals = self.strategy.generate_signals(watchlist)
+        
+        # Step 2-4: Process each signal through risk → execution → logging
+        for signal in signals:
+            symbol = signal['symbol']
+            decision = signal['decision']
+            quantity = signal['quantity']
+            price = signal['signals']['current_price']
+            score = signal['score']
+            
+            # Log signal generation
+            self.logger.log_signal(symbol, score, signal['reason'], signal['signals'])
+            
+            # Log trade decision
+            self.logger.log_trade_decision(symbol, decision, score, signal['reason'])
+            
+            # Step 2: Risk validation
+            approved, reason = self.risk_manager.validate_trade(symbol, decision, quantity, price, score)
+            self.logger.log_risk_check(symbol, approved, reason, quantity, price)
+            
+            if approved:
+                # Step 3: Execute trade
+                execution_result = self.execution_engine.execute_trade(symbol, decision, quantity, price)
+                
+                if execution_result['success']:
+                    # Log execution
+                    executed_qty = execution_result['executed_quantity']
+                    if decision == 'SELL':
+                        executed_qty = -executed_qty  # Negative for sells in logging
+                    
+                    self.logger.log_execution(
+                        symbol, executed_qty, execution_result['execution_price'],
+                        execution_result['cash_before'], execution_result['cash_after'],
+                        execution_result['portfolio_value'],
+                        self.portfolio.realized_pnl, self.portfolio.unrealized_pnl
+                    )
+                    
+                    # Step 4: Update strategy cooldown
+                    self.strategy.record_trade(symbol)
+                    
+                    # Display trade execution
+                    print(f"[TRADE] {decision} {executed_qty:.0f} {symbol} @ ${execution_result['execution_price']:.2f}")
+        
+        # Step 5: Display portfolio status
+        self._display_portfolio_status()
+
+    def _display_portfolio_status(self) -> None:
+        """
+        Display current portfolio status.
+        """
+        # Get current prices for unrealized PnL calculation
+        current_prices = {}
+        for symbol in self.signal_engine.get_tracked_symbols():
+            signals = self.signal_engine.compute_all_signals(symbol)
+            if signals:
+                current_prices[symbol] = signals['current_price']
+        
+        summary = self.portfolio.get_portfolio_summary(current_prices)
+        
+        print(f"[PORTFOLIO] Cash: ${summary['cash']:,.2f} | "
+              f"Value: ${summary['portfolio_value']:,.2f} | "
+              f"PnL: ${summary['total_pnl']:,.2f}")
+        
+        if summary['positions']:
+            print("[POSITIONS]")
+            for symbol, pos in summary['positions'].items():
+                print(f"  {symbol}: {pos['quantity']:.0f} @ ${pos['avg_price']:.2f} | "
+                      f"Unrealized: ${pos['unrealized_pnl']:.2f}")
+        
+        # Log portfolio update
+        self.logger.log_portfolio_update(summary)
+
     def run(self) -> None:
         """
         Main event loop: receive ticks, compute signals, and output watchlist.
@@ -329,6 +429,10 @@ class WatchlistEngine:
                         if watchlist_data and watchlist_data['watchlist']:
                             self._display_watchlist(watchlist_data)
                             self._save_watchlist(watchlist_data)
+                            
+                            # Phase 3: Run trading pipeline
+                            self._run_trading_pipeline(watchlist_data['watchlist'])
+                            
                             self.last_watchlist_time = current_time
                     
                     time.sleep(0.01)  # Sleep briefly to avoid busy-waiting

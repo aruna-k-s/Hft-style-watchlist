@@ -51,7 +51,7 @@ MIDDAY_START_HOUR = 10
 MIDDAY_START_MINUTE = 30
 
 # Watchlist Stability (Phase 2)
-STABILITY_CYCLES_REQUIRED = 3  # Must be in top N for X consecutive cycles
+STABILITY_CYCLES_REQUIRED = 1  # Must be in top N for X consecutive cycles
 STABILITY_TOP_N = 15  # Consider top 15 for stability check
 
 # Output Configuration
@@ -66,3 +66,33 @@ LOG_TICK_EVERY_N = 1000  # Log tick statistics every N ticks
 # Performance
 NUM_WORKERS = 1  # Number of parallel signal computation workers
 BUFFER_POLL_TIMEOUT_MS = 100  # How often to check for new data
+
+# Phase 3: Trading Configuration
+PAPER_MODE = True  # Always run in paper trading mode (no real broker)
+
+# Strategy Configuration
+STRATEGY_SCORE_THRESHOLD = 5.0  # Minimum score to consider for trading
+STRATEGY_MOMENTUM_THRESHOLD = 0.001  # Minimum momentum for BUY signals
+STRATEGY_COOLDOWN_SECONDS = 60  # Minimum time between trades for same symbol
+
+# Risk Management Configuration
+RISK_MAX_POSITION_SIZE = 0.25  # Max position size as % of total capital (increased to 25%)
+RISK_MAX_TOTAL_EXPOSURE = 0.8  # Max total exposure as % of capital (increased to 80%)
+RISK_STOP_LOSS_PERCENT = 0.05  # Stop loss at 5% loss per position
+RISK_DAILY_LOSS_LIMIT = 0.1  # Stop trading if daily loss exceeds 10% of capital
+
+# Portfolio Configuration
+INITIAL_CASH = 100000.0  # Starting cash in paper trading
+
+# Execution Configuration
+EXECUTION_SLIPPAGE = 0.0  # No slippage in Phase 3 paper trading
+
+# Logging Configuration
+LOG_CSV_FILE = "trades.csv"
+LOG_JSON_FILE = "trades.json"
+LOG_LEVEL = "INFO"  # DEBUG, INFO, WARNING, ERROR
+
+# Backtesting Configuration
+BACKTEST_DATA_FILE = "backtest_data.json"  # Historical tick data for backtesting
+BACKTEST_START_DATE = "2024-01-01"
+BACKTEST_END_DATE = "2024-12-31"
