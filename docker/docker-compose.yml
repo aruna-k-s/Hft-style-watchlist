@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  # C++ Tick Ingestion Engine
+  ingestion-engine:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.cpp
+    container_name: hft-ingestion-engine
+    ports:
+      - "5555:5555"
+    environment:
+      - TZ=UTC
+    restart: unless-stopped
+    networks:
+      - hft-network
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "5555"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    labels:
+      - "component=ingestion"
+      - "service=zmq-publisher"
+
+  # Python Signal Processing Engine
+  signal-engine:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.python
+    container_name: hft-signal-engine
+    environment:
+      - TZ=UTC
+    depends_on:
+      ingestion-engine:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - hft-network
+    volumes:
+      - ./watchlist_output:/app/output
+    labels:
+      - "component=processing"
+      - "service=signal-engine"
+
+networks:
+  hft-network:
+    driver: bridge
+
+volumes:
+  watchlist_output:
