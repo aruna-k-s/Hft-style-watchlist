@@ -19,23 +19,25 @@ from signal_engine import SignalEngine
 from scoring import ScoringEngine
 from strategy import StrategyEngine
 from risk_manager import RiskManager
-from execution_engine import ExecutionEngine
 from portfolio import PortfolioManager
 from logger import TradeLogger
+from execution.execution_factory import get_execution_engine
+from execution.config.config_loader import load_trading_config
 
 
 class WatchlistEngine:
-    def __init__(self):
+    def __init__(self, trading_config=None):
+        self.trading_config = trading_config or load_trading_config()
         self.config_module = sys.modules['config']
         self.signal_engine = SignalEngine(self.config_module)
         self.scoring_engine = ScoringEngine(self.config_module)
         
-        # Phase 3: Initialize trading components
-        self.portfolio = PortfolioManager(self.config_module.INITIAL_CASH)
+        # Phase 4: Initialize trading components
+        self.portfolio = PortfolioManager(self.trading_config.capital.initial_cash)
         self.logger = TradeLogger(self.config_module.LOG_CSV_FILE, self.config_module.LOG_JSON_FILE)
         self.strategy = StrategyEngine(self.config_module)
-        self.risk_manager = RiskManager(self.config_module, self.portfolio)
-        self.execution_engine = ExecutionEngine(self.config_module, self.portfolio, self.risk_manager)
+        self.risk_manager = RiskManager(self.config_module, self.portfolio, self.trading_config)
+        self.execution_engine = get_execution_engine(self.trading_config, self.portfolio, self.risk_manager)
         
         # Ensure output directory exists
         self._ensure_output_directory()
@@ -58,11 +60,13 @@ class WatchlistEngine:
         signal.signal(signal.SIGTERM, self._signal_handler)
         
         print("=" * 80)
-        print("   HFT-Style Watchlist: Phase 3 Enhanced Trading System")
+        print("   HFT-Style Watchlist: Phase 4 Trading System")
         print("=" * 80)
-        print(f"[PHASE 3] Paper Trading Mode: {self.config_module.PAPER_MODE}")
-        print(f"[PHASE 3] Initial Cash: ${self.config_module.INITIAL_CASH:,.2f}")
-        print(f"[PHASE 3] Risk Limits: Max Position {self.config_module.RISK_MAX_POSITION_SIZE*100:.1f}%, Daily Loss {self.config_module.RISK_DAILY_LOSS_LIMIT*100:.1f}%")
+        print(f"[PHASE 4] Trading Mode: {self.trading_config.mode}")
+        print(f"[PHASE 4] Live Trading Enabled: {self.trading_config.enable_live_trading}")
+        print(f"[PHASE 4] Initial Cash: ${self.trading_config.capital.initial_cash:,.2f}")
+        print(f"[PHASE 4] Risk Limits: Max Position {self.trading_config.risk.max_position_size_pct*100:.1f}%, Total Exposure {self.trading_config.risk.max_total_exposure_pct*100:.1f}%")
+        print(f"[PHASE 4] Execution Slippage: {self.trading_config.execution.slippage_pct*100:.2f}%")
         print(f"[PYTHON] Connecting to ZeroMQ at {ZMQ_ENDPOINT}...")
         time.sleep(1)
         print(f"[PYTHON] Phase 2 Features: Rolling Windows, Normalization, Time-Based Scoring")
@@ -356,23 +360,38 @@ class WatchlistEngine:
             
             if approved:
                 # Step 3: Execute trade
-                execution_result = self.execution_engine.execute_trade(symbol, decision, quantity, price)
-                
+                order = {
+                    'symbol': symbol,
+                    'side': decision,
+                    'quantity': quantity,
+                    'price': price
+                }
+                execution_result = self.execution_engine.execute(order)
+                executed_qty = 0
+
                 if execution_result['success']:
-                    # Log execution
                     executed_qty = execution_result['executed_quantity']
                     if decision == 'SELL':
                         executed_qty = -executed_qty  # Negative for sells in logging
-                    
-                    self.logger.log_execution(
-                        symbol, executed_qty, execution_result['execution_price'],
-                        execution_result['cash_before'], execution_result['cash_after'],
-                        execution_result['portfolio_value'],
-                        self.portfolio.realized_pnl, self.portfolio.unrealized_pnl
-                    )
-                    
+
+                self.logger.log_execution(
+                    symbol,
+                    executed_qty,
+                    execution_result.get('execution_price', price) or price,
+                    execution_result.get('cash_before', self.portfolio.cash),
+                    execution_result.get('cash_after', self.portfolio.cash),
+                    execution_result.get('portfolio_value', self.portfolio.get_portfolio_value({})),
+                    self.portfolio.realized_pnl,
+                    self.portfolio.unrealized_pnl,
+                    execution_result.get('mode', 'paper'),
+                    execution_result.get('result', 'unknown'),
+                    decision
+                )
+
+                if execution_result['success']:
                     # Step 4: Update strategy cooldown
-                    self.strategy.record_trade(symbol)
+                    if hasattr(self.strategy, 'record_trade'):
+                        self.strategy.record_trade(symbol)
                     
                     # Display trade execution
                     print(f"[TRADE] {decision} {executed_qty:.0f} {symbol} @ ${execution_result['execution_price']:.2f}")
@@ -456,10 +475,13 @@ class WatchlistEngine:
         print("[PYTHON] Shutdown complete")
 
 
+from execution.core.system_runner import SystemRunner
+
+
 def main():
     """Entry point for the Python signal engine."""
-    engine = WatchlistEngine()
-    engine.run()
+    runner = SystemRunner()
+    runner.run()
 
 
 if __name__ == "__main__":

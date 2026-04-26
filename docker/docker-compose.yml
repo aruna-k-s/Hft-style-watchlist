@@ -11,6 +11,8 @@ services:
       - "5555:5555"
     environment:
       - TZ=UTC
+      - DATA_SOURCE=${DATA_SOURCE:-simulated}
+      - UPSTOX_BRIDGE_ENDPOINT=${UPSTOX_BRIDGE_ENDPOINT:-tcp://python-bridge:5556}
     restart: unless-stopped
     networks:
       - hft-network
@@ -22,6 +24,24 @@ services:
     labels:
       - "component=ingestion"
       - "service=zmq-publisher"
+
+  # Python bridge for Upstox real-time market data
+  python-bridge:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.python
+    container_name: hft-python-bridge
+    environment:
+      - TZ=UTC
+      - DATA_SOURCE=upstox
+      - UPSTOX_BRIDGE_ENDPOINT=tcp://0.0.0.0:5556
+    restart: unless-stopped
+    networks:
+      - hft-network
+    command: ["python", "/app/python_bridge/upstox_bridge.py"]
+    labels:
+      - "component=bridge"
+      - "service=upstox-bridge"
 
   # Python Signal Processing Engine
   signal-engine:

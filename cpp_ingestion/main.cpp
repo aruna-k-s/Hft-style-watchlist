@@ -2,9 +2,11 @@
 #include "zmq_publisher.cpp"
 
 #include <iostream>
+#include <memory>
 #include <thread>
 #include <chrono>
 #include <atomic>
+#include <cstdlib>
 #include <signal.h>
 #include <iomanip>
 
@@ -31,19 +33,38 @@ int main() {
         TickSimulator simulator;
         ZeroMQPublisher publisher;
 
+        const char* data_source_env = std::getenv("DATA_SOURCE");
+        bool use_external_source = data_source_env && std::string(data_source_env) == "upstox";
+        std::unique_ptr<ZeroMQSubscriber> external_subscriber;
+        if (use_external_source) {
+            external_subscriber = std::make_unique<ZeroMQSubscriber>();
+        }
+
         // Give subscriber time to connect
         std::cout << "[INGESTION] Waiting for subscriber connections (2 seconds)..." << std::endl;
         std::this_thread::sleep_for(std::chrono::seconds(2));
 
-        std::cout << "[INGESTION] Publishing ticks at ~500/sec..." << std::endl;
+        if (use_external_source) {
+            std::cout << "[INGESTION] External Upstox feed enabled. Receiving ticks from bridge..." << std::endl;
+        } else {
+            std::cout << "[INGESTION] Publishing simulated ticks at ~500/sec..." << std::endl;
+        }
         std::cout << "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" << std::endl;
 
         uint64_t tick_count = 0;
         auto start_time = std::chrono::high_resolution_clock::now();
 
         while (!should_exit) {
-            // Generate and publish a tick
-            Tick tick = simulator.generate_tick();
+            Tick tick;
+            if (use_external_source) {
+                if (!external_subscriber || !external_subscriber->receive_tick(tick, 100)) {
+                    std::this_thread::sleep_for(std::chrono::milliseconds(1));
+                    continue;
+                }
+            } else {
+                tick = simulator.generate_tick();
+            }
+
             publisher.publish_tick(tick);
             tick_count++;
 

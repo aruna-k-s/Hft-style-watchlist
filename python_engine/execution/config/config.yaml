@@ -1,0 +1,32 @@
+trading:
+  mode: "paper"
+  enable_live_trading: false
+  capital:
+    initial_cash: 100000
+  risk:
+    max_position_size_pct: 0.1
+    max_total_exposure_pct: 0.5
+    stop_loss_pct: 0.02
+    daily_loss_limit_pct: 0.05
+  execution:
+    slippage_pct: 0.001
+    order_timeout_sec: 5
+    broker:
+      name: "zerodha"
+      api_key: "YOUR_API_KEY"
+      api_secret: "YOUR_API_SECRET"
+      access_token: "YOUR_ACCESS_TOKEN"
+  system:
+    log_level: "INFO"
+    cycle_interval_sec: 3
+
+data_source:
+  provider: "upstox"
+
+upstox:
+  api_key: "YOUR_API_KEY"
+  access_token: "YOUR_ACCESS_TOKEN"
+  instruments:
+    - "NSE_EQ|RELIANCE"
+    - "NSE_EQ|TCS"
+  mode: "full"

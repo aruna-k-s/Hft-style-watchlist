@@ -26477,5 +26477,1696 @@
       },
       "position_count": 6
     }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:14.173852",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 100000.0,
+      "portfolio_value": 100000.0,
+      "total_pnl": 0.0,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 0.0,
+      "positions": {},
+      "position_count": 0
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:17.331471",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 100000.0,
+      "portfolio_value": 100000.0,
+      "total_pnl": 0.0,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 0.0,
+      "positions": {},
+      "position_count": 0
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:20.355124",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 100000.0,
+      "portfolio_value": 100000.0,
+      "total_pnl": 0.0,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 0.0,
+      "positions": {},
+      "position_count": 0
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:23.403716",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 100000.0,
+      "portfolio_value": 100000.0,
+      "total_pnl": 0.0,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 0.0,
+      "positions": {},
+      "position_count": 0
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:26.586565",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 100000.0,
+      "portfolio_value": 100000.0,
+      "total_pnl": 0.0,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 0.0,
+      "positions": {},
+      "position_count": 0
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:29.303681",
+    "action": "SIGNAL",
+    "symbol": "JBHT",
+    "score": 10.69,
+    "reason": "score_10.7_momentum_0.0121",
+    "signals": {
+      "momentum": 0.012066,
+      "volume_spike": 1.04,
+      "vwap": 135.0024,
+      "vwap_deviation": 0.009056,
+      "spread": 0.0539,
+      "current_price": 136.22,
+      "bid": 136.2,
+      "ask": 136.25,
+      "momentum_normalized": 2.59,
+      "volume_spike_normalized": 0.25,
+      "vwap_deviation_normalized": 2.7
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:29.352369",
+    "action": "DECISION",
+    "symbol": "JBHT",
+    "decision": "BUY",
+    "score": 10.69,
+    "reason": "score_10.7_momentum_0.0121"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:29.397787",
+    "action": "RISK_CHECK",
+    "symbol": "JBHT",
+    "approved": true,
+    "reason": "approved",
+    "quantity": 50,
+    "price": 136.22
+  },
+  {
+    "timestamp": "2026-04-26T15:11:29.444263",
+    "action": "EXECUTION",
+    "symbol": "JBHT",
+    "decision": "BUY",
+    "mode": "paper",
+    "quantity": 50,
+    "price": 136.36,
+    "result": "filled",
+    "cash_before": 100000.0,
+    "cash_after": 93182.19,
+    "portfolio_value": 100000.0,
+    "pnl_realized": 0.0,
+    "pnl_unrealized": 0.0
+  },
+  {
+    "timestamp": "2026-04-26T15:11:29.498405",
+    "action": "SIGNAL",
+    "symbol": "CRM",
+    "score": 10.11,
+    "reason": "score_10.1_momentum_0.0078",
+    "signals": {
+      "momentum": 0.00782,
+      "volume_spike": 0.37,
+      "vwap": 194.765,
+      "vwap_deviation": 0.006449,
+      "spread": 0.055,
+      "current_price": 196.02,
+      "bid": 195.99,
+      "ask": 196.05,
+      "momentum_normalized": 2.42,
+      "volume_spike_normalized": -0.93,
+      "vwap_deviation_normalized": 2.56
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:29.553365",
+    "action": "DECISION",
+    "symbol": "CRM",
+    "decision": "BUY",
+    "score": 10.11,
+    "reason": "score_10.1_momentum_0.0078"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:29.602296",
+    "action": "RISK_CHECK",
+    "symbol": "CRM",
+    "approved": true,
+    "reason": "approved",
+    "quantity": 50,
+    "price": 196.02
+  },
+  {
+    "timestamp": "2026-04-26T15:11:29.651140",
+    "action": "EXECUTION",
+    "symbol": "CRM",
+    "decision": "BUY",
+    "mode": "paper",
+    "quantity": 50,
+    "price": 196.22,
+    "result": "filled",
+    "cash_before": 93182.19,
+    "cash_after": 83371.39,
+    "portfolio_value": 100000.0,
+    "pnl_realized": 0.0,
+    "pnl_unrealized": 0.0
+  },
+  {
+    "timestamp": "2026-04-26T15:11:29.915236",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 83371.39,
+      "portfolio_value": 99983.69,
+      "total_pnl": -9.75,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -9.75,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 136.22,
+          "unrealized_pnl": -6.56
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 196.02,
+          "unrealized_pnl": -9.75
+        }
+      },
+      "position_count": 2
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:32.578240",
+    "action": "SIGNAL",
+    "symbol": "GOOGL",
+    "score": 10.22,
+    "reason": "score_10.2_momentum_0.0058",
+    "signals": {
+      "momentum": 0.005813,
+      "volume_spike": 1.6,
+      "vwap": 459.8468,
+      "vwap_deviation": 0.004129,
+      "spread": 0.0493,
+      "current_price": 461.75,
+      "bid": 461.72,
+      "ask": 461.77,
+      "momentum_normalized": 1.93,
+      "volume_spike_normalized": 1.11,
+      "vwap_deviation_normalized": 2.06
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:32.706246",
+    "action": "DECISION",
+    "symbol": "GOOGL",
+    "decision": "BUY",
+    "score": 10.22,
+    "reason": "score_10.2_momentum_0.0058"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:32.799395",
+    "action": "RISK_CHECK",
+    "symbol": "GOOGL",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_22",
+    "quantity": 50,
+    "price": 461.75
+  },
+  {
+    "timestamp": "2026-04-26T15:11:32.876822",
+    "action": "SIGNAL",
+    "symbol": "IBM",
+    "score": 8.77,
+    "reason": "score_8.8_momentum_0.0044",
+    "signals": {
+      "momentum": 0.004361,
+      "volume_spike": 1.49,
+      "vwap": 312.3232,
+      "vwap_deviation": 0.005782,
+      "spread": 0.0995,
+      "current_price": 314.13,
+      "bid": 314.08,
+      "ask": 314.18,
+      "momentum_normalized": 1.05,
+      "volume_spike_normalized": 1.96,
+      "vwap_deviation_normalized": 1.92
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:32.958961",
+    "action": "DECISION",
+    "symbol": "IBM",
+    "decision": "BUY",
+    "score": 8.77,
+    "reason": "score_8.8_momentum_0.0044"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.011798",
+    "action": "RISK_CHECK",
+    "symbol": "IBM",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_32",
+    "quantity": 50,
+    "price": 314.13
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.064353",
+    "action": "SIGNAL",
+    "symbol": "INTC",
+    "score": 8.37,
+    "reason": "score_8.4_momentum_0.0065",
+    "signals": {
+      "momentum": 0.006538,
+      "volume_spike": 0.52,
+      "vwap": 137.6516,
+      "vwap_deviation": 0.007475,
+      "spread": 0.0202,
+      "current_price": 138.68,
+      "bid": 138.67,
+      "ask": 138.69,
+      "momentum_normalized": 1.36,
+      "volume_spike_normalized": -1.53,
+      "vwap_deviation_normalized": 2.0
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.111502",
+    "action": "DECISION",
+    "symbol": "INTC",
+    "decision": "BUY",
+    "score": 8.37,
+    "reason": "score_8.4_momentum_0.0065"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.160063",
+    "action": "RISK_CHECK",
+    "symbol": "INTC",
+    "approved": true,
+    "reason": "approved",
+    "quantity": 50,
+    "price": 138.68
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.207183",
+    "action": "EXECUTION",
+    "symbol": "INTC",
+    "decision": "BUY",
+    "mode": "paper",
+    "quantity": 50,
+    "price": 138.82,
+    "result": "filled",
+    "cash_before": 83371.39,
+    "cash_after": 76430.46,
+    "portfolio_value": 100000.0,
+    "pnl_realized": 0.0,
+    "pnl_unrealized": 0.0
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.255545",
+    "action": "SIGNAL",
+    "symbol": "FSLY",
+    "score": 8.05,
+    "reason": "score_8.1_momentum_0.0067",
+    "signals": {
+      "momentum": 0.006692,
+      "volume_spike": 1.19,
+      "vwap": 493.3539,
+      "vwap_deviation": 0.01085,
+      "spread": 0.0374,
+      "current_price": 498.71,
+      "bid": 498.69,
+      "ask": 498.73,
+      "momentum_normalized": 1.53,
+      "volume_spike_normalized": 0.26,
+      "vwap_deviation_normalized": 1.84
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.302649",
+    "action": "DECISION",
+    "symbol": "FSLY",
+    "decision": "BUY",
+    "score": 8.05,
+    "reason": "score_8.1_momentum_0.0067"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.349985",
+    "action": "RISK_CHECK",
+    "symbol": "FSLY",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_20",
+    "quantity": 50,
+    "price": 498.71
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.396860",
+    "action": "SIGNAL",
+    "symbol": "SUMO",
+    "score": 8.02,
+    "reason": "score_8.0_momentum_0.0035",
+    "signals": {
+      "momentum": 0.003516,
+      "volume_spike": 0.43,
+      "vwap": 314.8516,
+      "vwap_deviation": 0.005422,
+      "spread": 0.021,
+      "current_price": 316.56,
+      "bid": 316.55,
+      "ask": 316.57,
+      "momentum_normalized": 1.42,
+      "volume_spike_normalized": -1.96,
+      "vwap_deviation_normalized": 1.87
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.445593",
+    "action": "DECISION",
+    "symbol": "SUMO",
+    "decision": "BUY",
+    "score": 8.02,
+    "reason": "score_8.0_momentum_0.0035"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.493001",
+    "action": "RISK_CHECK",
+    "symbol": "SUMO",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_32",
+    "quantity": 50,
+    "price": 316.56
+  },
+  {
+    "timestamp": "2026-04-26T15:11:33.856592",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 76430.46,
+      "portfolio_value": 99904.6,
+      "total_pnl": -6.91,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -6.91,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 134.39,
+          "unrealized_pnl": -98.54
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 196.42,
+          "unrealized_pnl": 10.05
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 138.68,
+          "unrealized_pnl": -6.91
+        }
+      },
+      "position_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:35.492707",
+    "action": "SIGNAL",
+    "symbol": "IBM",
+    "score": 9.15,
+    "reason": "score_9.2_momentum_0.0073",
+    "signals": {
+      "momentum": 0.0073,
+      "volume_spike": 0.54,
+      "vwap": 312.4722,
+      "vwap_deviation": 0.009878,
+      "spread": 0.0648,
+      "current_price": 315.56,
+      "bid": 315.53,
+      "ask": 315.59,
+      "momentum_normalized": 1.83,
+      "volume_spike_normalized": -0.28,
+      "vwap_deviation_normalized": 2.44
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:35.541444",
+    "action": "DECISION",
+    "symbol": "IBM",
+    "decision": "BUY",
+    "score": 9.15,
+    "reason": "score_9.2_momentum_0.0073"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:35.600552",
+    "action": "RISK_CHECK",
+    "symbol": "IBM",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_32",
+    "quantity": 50,
+    "price": 315.56
+  },
+  {
+    "timestamp": "2026-04-26T15:11:35.833147",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 76430.46,
+      "portfolio_value": 99856.39,
+      "total_pnl": -11.14,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -11.14,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 134.4,
+          "unrealized_pnl": -97.79
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 195.52,
+          "unrealized_pnl": -34.68
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 138.6,
+          "unrealized_pnl": -11.14
+        }
+      },
+      "position_count": 3
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:38.456885",
+    "action": "SIGNAL",
+    "symbol": "AVGO",
+    "score": 11.8,
+    "reason": "score_11.8_momentum_0.0083",
+    "signals": {
+      "momentum": 0.008329,
+      "volume_spike": 0.03,
+      "vwap": 108.8192,
+      "vwap_deviation": 0.005445,
+      "spread": 0.0607,
+      "current_price": 109.41,
+      "bid": 109.38,
+      "ask": 109.44,
+      "momentum_normalized": 2.8,
+      "volume_spike_normalized": -1.87,
+      "vwap_deviation_normalized": 3.08
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:38.503323",
+    "action": "DECISION",
+    "symbol": "AVGO",
+    "decision": "BUY",
+    "score": 11.8,
+    "reason": "score_11.8_momentum_0.0083"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:38.551062",
+    "action": "RISK_CHECK",
+    "symbol": "AVGO",
+    "approved": true,
+    "reason": "approved",
+    "quantity": 50,
+    "price": 109.41
+  },
+  {
+    "timestamp": "2026-04-26T15:11:38.625098",
+    "action": "EXECUTION",
+    "symbol": "AVGO",
+    "decision": "BUY",
+    "mode": "paper",
+    "quantity": 50,
+    "price": 109.52,
+    "result": "filled",
+    "cash_before": 76430.46,
+    "cash_after": 70954.49,
+    "portfolio_value": 100000.0,
+    "pnl_realized": 0.0,
+    "pnl_unrealized": 0.0
+  },
+  {
+    "timestamp": "2026-04-26T15:11:38.676374",
+    "action": "SIGNAL",
+    "symbol": "PIN",
+    "score": 11.29,
+    "reason": "score_11.3_momentum_0.0114",
+    "signals": {
+      "momentum": 0.011374,
+      "volume_spike": 1.66,
+      "vwap": 311.8149,
+      "vwap_deviation": 0.009781,
+      "spread": 0.0128,
+      "current_price": 314.86,
+      "bid": 314.86,
+      "ask": 314.87,
+      "momentum_normalized": 2.14,
+      "volume_spike_normalized": 1.37,
+      "vwap_deviation_normalized": 2.26
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:38.736136",
+    "action": "DECISION",
+    "symbol": "PIN",
+    "decision": "BUY",
+    "score": 11.29,
+    "reason": "score_11.3_momentum_0.0114"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:38.827437",
+    "action": "RISK_CHECK",
+    "symbol": "PIN",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_32",
+    "quantity": 50,
+    "price": 314.86
+  },
+  {
+    "timestamp": "2026-04-26T15:11:39.194145",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 70954.49,
+      "portfolio_value": 99844.54,
+      "total_pnl": -5.39,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -5.39,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 134.89,
+          "unrealized_pnl": -73.36
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 195.08,
+          "unrealized_pnl": -56.92
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 138.42,
+          "unrealized_pnl": -19.79
+        },
+        "AVGO": {
+          "quantity": 50.0,
+          "avg_price": 109.52,
+          "current_price": 109.41,
+          "unrealized_pnl": -5.39
+        }
+      },
+      "position_count": 4
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:41.678814",
+    "action": "SIGNAL",
+    "symbol": "EXLS",
+    "score": 11.88,
+    "reason": "score_11.9_momentum_0.0071",
+    "signals": {
+      "momentum": 0.007096,
+      "volume_spike": 1.02,
+      "vwap": 129.8707,
+      "vwap_deviation": 0.010079,
+      "spread": 0.0887,
+      "current_price": 131.18,
+      "bid": 131.14,
+      "ask": 131.22,
+      "momentum_normalized": 2.88,
+      "volume_spike_normalized": 0.11,
+      "vwap_deviation_normalized": 3.63
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:41.794611",
+    "action": "DECISION",
+    "symbol": "EXLS",
+    "decision": "BUY",
+    "score": 11.88,
+    "reason": "score_11.9_momentum_0.0071"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:41.893809",
+    "action": "RISK_CHECK",
+    "symbol": "EXLS",
+    "approved": true,
+    "reason": "approved",
+    "quantity": 50,
+    "price": 131.18
+  },
+  {
+    "timestamp": "2026-04-26T15:11:41.941993",
+    "action": "EXECUTION",
+    "symbol": "EXLS",
+    "decision": "BUY",
+    "mode": "paper",
+    "quantity": 50,
+    "price": 131.31,
+    "result": "filled",
+    "cash_before": 70954.49,
+    "cash_after": 64388.93,
+    "portfolio_value": 100000.0,
+    "pnl_realized": 0.0,
+    "pnl_unrealized": 0.0
+  },
+  {
+    "timestamp": "2026-04-26T15:11:41.991403",
+    "action": "SIGNAL",
+    "symbol": "CDNS",
+    "score": 10.36,
+    "reason": "score_10.4_momentum_0.0087",
+    "signals": {
+      "momentum": 0.008714,
+      "volume_spike": 0.88,
+      "vwap": 426.2364,
+      "vwap_deviation": 0.005223,
+      "spread": 0.0614,
+      "current_price": 428.46,
+      "bid": 428.43,
+      "ask": 428.49,
+      "momentum_normalized": 2.12,
+      "volume_spike_normalized": -0.25,
+      "vwap_deviation_normalized": 2.75
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:42.040238",
+    "action": "DECISION",
+    "symbol": "CDNS",
+    "decision": "BUY",
+    "score": 10.36,
+    "reason": "score_10.4_momentum_0.0087"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:42.089850",
+    "action": "RISK_CHECK",
+    "symbol": "CDNS",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_23",
+    "quantity": 50,
+    "price": 428.46
+  },
+  {
+    "timestamp": "2026-04-26T15:11:42.140214",
+    "action": "SIGNAL",
+    "symbol": "KMTB",
+    "score": 9.74,
+    "reason": "score_9.7_momentum_0.0060",
+    "signals": {
+      "momentum": 0.006028,
+      "volume_spike": 0.04,
+      "vwap": 179.7188,
+      "vwap_deviation": 0.008958,
+      "spread": 0.057,
+      "current_price": 181.33,
+      "bid": 181.3,
+      "ask": 181.36,
+      "momentum_normalized": 1.51,
+      "volume_spike_normalized": -1.55,
+      "vwap_deviation_normalized": 2.74
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:42.189721",
+    "action": "DECISION",
+    "symbol": "KMTB",
+    "decision": "BUY",
+    "score": 9.74,
+    "reason": "score_9.7_momentum_0.0060"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:42.237378",
+    "action": "RISK_CHECK",
+    "symbol": "KMTB",
+    "approved": false,
+    "reason": "total_exposure_exceeds_limit",
+    "quantity": 50,
+    "price": 181.33
+  },
+  {
+    "timestamp": "2026-04-26T15:11:42.458535",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 64388.93,
+      "portfolio_value": 99796.56,
+      "total_pnl": -6.57,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -6.57,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 134.69,
+          "unrealized_pnl": -83.1
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 195.2,
+          "unrealized_pnl": -50.65
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 137.93,
+          "unrealized_pnl": -44.54
+        },
+        "AVGO": {
+          "quantity": 50.0,
+          "avg_price": 109.52,
+          "current_price": 109.15,
+          "unrealized_pnl": -18.58
+        },
+        "EXLS": {
+          "quantity": 50.0,
+          "avg_price": 131.31,
+          "current_price": 131.18,
+          "unrealized_pnl": -6.57
+        }
+      },
+      "position_count": 5
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:44.603886",
+    "action": "SIGNAL",
+    "symbol": "LI",
+    "score": 9.88,
+    "reason": "score_9.9_momentum_0.0087",
+    "signals": {
+      "momentum": 0.008659,
+      "volume_spike": 1.62,
+      "vwap": 445.6139,
+      "vwap_deviation": 0.01842,
+      "spread": 0.098,
+      "current_price": 453.82,
+      "bid": 453.77,
+      "ask": 453.87,
+      "momentum_normalized": 1.39,
+      "volume_spike_normalized": 1.93,
+      "vwap_deviation_normalized": 2.19
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:44.693270",
+    "action": "DECISION",
+    "symbol": "LI",
+    "decision": "BUY",
+    "score": 9.88,
+    "reason": "score_9.9_momentum_0.0087"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:44.752993",
+    "action": "RISK_CHECK",
+    "symbol": "LI",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_22",
+    "quantity": 50,
+    "price": 453.82
+  },
+  {
+    "timestamp": "2026-04-26T15:11:45.000086",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 64388.93,
+      "portfolio_value": 99739.92,
+      "total_pnl": -10.65,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -10.65,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 135.5,
+          "unrealized_pnl": -42.91
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 193.49,
+          "unrealized_pnl": -136.4
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 137.89,
+          "unrealized_pnl": -46.5
+        },
+        "AVGO": {
+          "quantity": 50.0,
+          "avg_price": 109.52,
+          "current_price": 109.05,
+          "unrealized_pnl": -23.63
+        },
+        "EXLS": {
+          "quantity": 50.0,
+          "avg_price": 131.31,
+          "current_price": 131.1,
+          "unrealized_pnl": -10.65
+        }
+      },
+      "position_count": 5
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:47.036891",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 100000.0,
+      "portfolio_value": 100000.0,
+      "total_pnl": 0.0,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 0.0,
+      "positions": {},
+      "position_count": 0
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:47.493756",
+    "action": "SIGNAL",
+    "symbol": "SHOP",
+    "score": 11.36,
+    "reason": "score_11.4_momentum_0.0032",
+    "signals": {
+      "momentum": 0.003193,
+      "volume_spike": 1.38,
+      "vwap": 124.9443,
+      "vwap_deviation": 0.008742,
+      "spread": 0.049,
+      "current_price": 126.04,
+      "bid": 126.01,
+      "ask": 126.06,
+      "momentum_normalized": 0.89,
+      "volume_spike_normalized": 1.42,
+      "vwap_deviation_normalized": 2.69
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:47.555777",
+    "action": "DECISION",
+    "symbol": "SHOP",
+    "decision": "BUY",
+    "score": 11.36,
+    "reason": "score_11.4_momentum_0.0032"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:47.606991",
+    "action": "RISK_CHECK",
+    "symbol": "SHOP",
+    "approved": true,
+    "reason": "approved",
+    "quantity": 50,
+    "price": 126.04
+  },
+  {
+    "timestamp": "2026-04-26T15:11:47.659373",
+    "action": "EXECUTION",
+    "symbol": "SHOP",
+    "decision": "BUY",
+    "mode": "paper",
+    "quantity": 50,
+    "price": 126.17,
+    "result": "filled",
+    "cash_before": 64388.93,
+    "cash_after": 58080.62,
+    "portfolio_value": 100000.0,
+    "pnl_realized": 0.0,
+    "pnl_unrealized": 0.0
+  },
+  {
+    "timestamp": "2026-04-26T15:11:47.932883",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 58080.62,
+      "portfolio_value": 99634.38,
+      "total_pnl": -6.47,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -6.47,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 134.46,
+          "unrealized_pnl": -94.87
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 192.27,
+          "unrealized_pnl": -197.29
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 137.75,
+          "unrealized_pnl": -53.52
+        },
+        "AVGO": {
+          "quantity": 50.0,
+          "avg_price": 109.52,
+          "current_price": 109.11,
+          "unrealized_pnl": -20.5
+        },
+        "EXLS": {
+          "quantity": 50.0,
+          "avg_price": 131.31,
+          "current_price": 131.45,
+          "unrealized_pnl": 7.04
+        },
+        "SHOP": {
+          "quantity": 50.0,
+          "avg_price": 126.17,
+          "current_price": 126.04,
+          "unrealized_pnl": -6.47
+        }
+      },
+      "position_count": 6
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:50.258475",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 100000.0,
+      "portfolio_value": 100000.0,
+      "total_pnl": 0.0,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 0.0,
+      "positions": {},
+      "position_count": 0
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:50.795447",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 58080.62,
+      "portfolio_value": 99679.45,
+      "total_pnl": 3.37,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 3.37,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 135.0,
+          "unrealized_pnl": -67.99
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 193.42,
+          "unrealized_pnl": -140.03
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 137.03,
+          "unrealized_pnl": -89.6
+        },
+        "AVGO": {
+          "quantity": 50.0,
+          "avg_price": 109.52,
+          "current_price": 108.92,
+          "unrealized_pnl": -30.01
+        },
+        "EXLS": {
+          "quantity": 50.0,
+          "avg_price": 131.31,
+          "current_price": 131.39,
+          "unrealized_pnl": 3.7
+        },
+        "SHOP": {
+          "quantity": 50.0,
+          "avg_price": 126.17,
+          "current_price": 126.23,
+          "unrealized_pnl": 3.37
+        }
+      },
+      "position_count": 6
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:53.406218",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 100000.0,
+      "portfolio_value": 100000.0,
+      "total_pnl": 0.0,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 0.0,
+      "positions": {},
+      "position_count": 0
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:53.597385",
+    "action": "SIGNAL",
+    "symbol": "LI",
+    "score": 10.51,
+    "reason": "score_10.5_momentum_0.0106",
+    "signals": {
+      "momentum": 0.010565,
+      "volume_spike": 1.18,
+      "vwap": 447.5521,
+      "vwap_deviation": 0.029414,
+      "spread": 0.0247,
+      "current_price": 460.72,
+      "bid": 460.7,
+      "ask": 460.73,
+      "momentum_normalized": 1.81,
+      "volume_spike_normalized": 0.73,
+      "vwap_deviation_normalized": 2.57
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:53.659599",
+    "action": "DECISION",
+    "symbol": "LI",
+    "decision": "BUY",
+    "score": 10.51,
+    "reason": "score_10.5_momentum_0.0106"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:53.714434",
+    "action": "RISK_CHECK",
+    "symbol": "LI",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_22",
+    "quantity": 50,
+    "price": 460.72
+  },
+  {
+    "timestamp": "2026-04-26T15:11:53.766362",
+    "action": "SIGNAL",
+    "symbol": "SUMO",
+    "score": 10.01,
+    "reason": "score_10.0_momentum_0.0048",
+    "signals": {
+      "momentum": 0.004756,
+      "volume_spike": 0.73,
+      "vwap": 316.2279,
+      "vwap_deviation": 0.012378,
+      "spread": 0.0444,
+      "current_price": 320.14,
+      "bid": 320.12,
+      "ask": 320.16,
+      "momentum_normalized": 1.05,
+      "volume_spike_normalized": -0.33,
+      "vwap_deviation_normalized": 2.66
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:53.817877",
+    "action": "DECISION",
+    "symbol": "SUMO",
+    "decision": "BUY",
+    "score": 10.01,
+    "reason": "score_10.0_momentum_0.0048"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:53.866306",
+    "action": "RISK_CHECK",
+    "symbol": "SUMO",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_31",
+    "quantity": 50,
+    "price": 320.14
+  },
+  {
+    "timestamp": "2026-04-26T15:11:53.924436",
+    "action": "SIGNAL",
+    "symbol": "DIS",
+    "score": 9.67,
+    "reason": "score_9.7_momentum_0.0052",
+    "signals": {
+      "momentum": 0.005218,
+      "volume_spike": 0.77,
+      "vwap": 405.4599,
+      "vwap_deviation": 0.015341,
+      "spread": 0.027,
+      "current_price": 411.68,
+      "bid": 411.67,
+      "ask": 411.69,
+      "momentum_normalized": 0.85,
+      "volume_spike_normalized": -0.23,
+      "vwap_deviation_normalized": 2.6
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:53.976297",
+    "action": "DECISION",
+    "symbol": "DIS",
+    "decision": "BUY",
+    "score": 9.67,
+    "reason": "score_9.7_momentum_0.0052"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:54.025155",
+    "action": "RISK_CHECK",
+    "symbol": "DIS",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_24",
+    "quantity": 50,
+    "price": 411.68
+  },
+  {
+    "timestamp": "2026-04-26T15:11:54.263331",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 58080.62,
+      "portfolio_value": 99680.51,
+      "total_pnl": 3.18,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 3.18,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 135.48,
+          "unrealized_pnl": -43.83
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 193.26,
+          "unrealized_pnl": -147.82
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 136.96,
+          "unrealized_pnl": -93.0
+        },
+        "AVGO": {
+          "quantity": 50.0,
+          "avg_price": 109.52,
+          "current_price": 107.98,
+          "unrealized_pnl": -76.76
+        },
+        "EXLS": {
+          "quantity": 50.0,
+          "avg_price": 131.31,
+          "current_price": 132.09,
+          "unrealized_pnl": 38.74
+        },
+        "SHOP": {
+          "quantity": 50.0,
+          "avg_price": 126.17,
+          "current_price": 126.23,
+          "unrealized_pnl": 3.18
+        }
+      },
+      "position_count": 6
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:56.416302",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 100000.0,
+      "portfolio_value": 100000.0,
+      "total_pnl": 0.0,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": 0.0,
+      "positions": {},
+      "position_count": 0
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:56.833711",
+    "action": "SIGNAL",
+    "symbol": "DIS",
+    "score": 11.13,
+    "reason": "score_11.1_momentum_0.0042",
+    "signals": {
+      "momentum": 0.004202,
+      "volume_spike": 1.92,
+      "vwap": 405.9074,
+      "vwap_deviation": 0.018483,
+      "spread": 0.0292,
+      "current_price": 413.41,
+      "bid": 413.4,
+      "ask": 413.42,
+      "momentum_normalized": 0.55,
+      "volume_spike_normalized": 1.81,
+      "vwap_deviation_normalized": 2.59
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:56.954414",
+    "action": "DECISION",
+    "symbol": "DIS",
+    "decision": "BUY",
+    "score": 11.13,
+    "reason": "score_11.1_momentum_0.0042"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:57.061591",
+    "action": "RISK_CHECK",
+    "symbol": "DIS",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_24",
+    "quantity": 50,
+    "price": 413.41
+  },
+  {
+    "timestamp": "2026-04-26T15:11:57.411419",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 58080.62,
+      "portfolio_value": 99582.24,
+      "total_pnl": -29.09,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -29.09,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 135.51,
+          "unrealized_pnl": -42.39
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 192.86,
+          "unrealized_pnl": -167.66
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 136.3,
+          "unrealized_pnl": -126.11
+        },
+        "AVGO": {
+          "quantity": 50.0,
+          "avg_price": 109.52,
+          "current_price": 108.19,
+          "unrealized_pnl": -66.61
+        },
+        "EXLS": {
+          "quantity": 50.0,
+          "avg_price": 131.31,
+          "current_price": 131.59,
+          "unrealized_pnl": 14.1
+        },
+        "SHOP": {
+          "quantity": 50.0,
+          "avg_price": 126.17,
+          "current_price": 125.58,
+          "unrealized_pnl": -29.09
+        }
+      },
+      "position_count": 6
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:59.320906",
+    "action": "SIGNAL",
+    "symbol": "PG",
+    "score": 11.16,
+    "reason": "score_11.2_momentum_0.0080",
+    "signals": {
+      "momentum": 0.008035,
+      "volume_spike": 0.29,
+      "vwap": 182.0487,
+      "vwap_deviation": 0.00462,
+      "spread": 0.0953,
+      "current_price": 182.89,
+      "bid": 182.84,
+      "ask": 182.94,
+      "momentum_normalized": 2.81,
+      "volume_spike_normalized": -0.62,
+      "vwap_deviation_normalized": 2.78
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:59.516430",
+    "action": "DECISION",
+    "symbol": "PG",
+    "decision": "BUY",
+    "score": 11.16,
+    "reason": "score_11.2_momentum_0.0080"
+  },
+  {
+    "timestamp": "2026-04-26T15:11:59.609173",
+    "action": "RISK_CHECK",
+    "symbol": "PG",
+    "approved": true,
+    "reason": "approved",
+    "quantity": 50,
+    "price": 182.89
+  },
+  {
+    "timestamp": "2026-04-26T15:11:59.748727",
+    "action": "EXECUTION",
+    "symbol": "PG",
+    "decision": "BUY",
+    "mode": "paper",
+    "quantity": 50,
+    "price": 183.07,
+    "result": "filled",
+    "cash_before": 100000.0,
+    "cash_after": 90846.35,
+    "portfolio_value": 100000.0,
+    "pnl_realized": 0.0,
+    "pnl_unrealized": 0.0
+  },
+  {
+    "timestamp": "2026-04-26T15:11:59.869821",
+    "action": "SIGNAL",
+    "symbol": "LI",
+    "score": 10.84,
+    "reason": "score_10.8_momentum_0.0078",
+    "signals": {
+      "momentum": 0.007819,
+      "volume_spike": 4.57,
+      "vwap": 450.5924,
+      "vwap_deviation": 0.031252,
+      "spread": 0.015,
+      "current_price": 464.67,
+      "bid": 464.67,
+      "ask": 464.68,
+      "momentum_normalized": 0.94,
+      "volume_spike_normalized": 4.4,
+      "vwap_deviation_normalized": 1.97
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:11:59.989167",
+    "action": "DECISION",
+    "symbol": "LI",
+    "decision": "BUY",
+    "score": 10.84,
+    "reason": "score_10.8_momentum_0.0078"
+  },
+  {
+    "timestamp": "2026-04-26T15:12:00.086843",
+    "action": "RISK_CHECK",
+    "symbol": "LI",
+    "approved": false,
+    "reason": "position_size_exceeds_limit_22",
+    "quantity": 50,
+    "price": 464.67
+  },
+  {
+    "timestamp": "2026-04-26T15:12:00.182448",
+    "action": "SIGNAL",
+    "symbol": "JKHY",
+    "score": 9.74,
+    "reason": "score_9.7_momentum_0.0066",
+    "signals": {
+      "momentum": 0.00664,
+      "volume_spike": 0.41,
+      "vwap": 166.1625,
+      "vwap_deviation": 0.015261,
+      "spread": 0.0619,
+      "current_price": 168.7,
+      "bid": 168.67,
+      "ask": 168.73,
+      "momentum_normalized": 0.74,
+      "volume_spike_normalized": -0.51,
+      "vwap_deviation_normalized": 3.1
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:12:00.298943",
+    "action": "DECISION",
+    "symbol": "JKHY",
+    "decision": "BUY",
+    "score": 9.74,
+    "reason": "score_9.7_momentum_0.0066"
+  },
+  {
+    "timestamp": "2026-04-26T15:12:00.374897",
+    "action": "RISK_CHECK",
+    "symbol": "JKHY",
+    "approved": false,
+    "reason": "total_exposure_exceeds_limit",
+    "quantity": 50,
+    "price": 168.7
+  },
+  {
+    "timestamp": "2026-04-26T15:12:00.641432",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 58080.62,
+      "portfolio_value": 99525.09,
+      "total_pnl": -72.17,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -72.17,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 136.36,
+          "unrealized_pnl": -0.05
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 192.71,
+          "unrealized_pnl": -175.29
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 135.93,
+          "unrealized_pnl": -144.59
+        },
+        "AVGO": {
+          "quantity": 50.0,
+          "avg_price": 109.52,
+          "current_price": 107.94,
+          "unrealized_pnl": -78.92
+        },
+        "EXLS": {
+          "quantity": 50.0,
+          "avg_price": 131.31,
+          "current_price": 131.23,
+          "unrealized_pnl": -3.9
+        },
+        "SHOP": {
+          "quantity": 50.0,
+          "avg_price": 126.17,
+          "current_price": 124.72,
+          "unrealized_pnl": -72.17
+        }
+      },
+      "position_count": 6
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:12:02.630495",
+    "action": "SIGNAL",
+    "symbol": "MSTR",
+    "score": 10.09,
+    "reason": "score_10.1_momentum_0.0089",
+    "signals": {
+      "momentum": 0.008907,
+      "volume_spike": 1.26,
+      "vwap": 450.6808,
+      "vwap_deviation": 0.011295,
+      "spread": 0.0258,
+      "current_price": 455.77,
+      "bid": 455.76,
+      "ask": 455.78,
+      "momentum_normalized": 1.8,
+      "volume_spike_normalized": 1.02,
+      "vwap_deviation_normalized": 2.09
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:12:02.733067",
+    "action": "SIGNAL",
+    "symbol": "MSTR",
+    "score": 13.5,
+    "reason": "score_13.5_momentum_0.0089",
+    "signals": {
+      "momentum": 0.008907,
+      "volume_spike": 1.26,
+      "vwap": 450.8015,
+      "vwap_deviation": 0.011024,
+      "spread": 0.0258,
+      "current_price": 455.77,
+      "bid": 455.76,
+      "ask": 455.78,
+      "momentum_normalized": 2.38,
+      "volume_spike_normalized": 1.12,
+      "vwap_deviation_normalized": 3.7
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:12:02.924400",
+    "action": "SIGNAL",
+    "symbol": "JKHY",
+    "score": 9.44,
+    "reason": "score_9.4_momentum_0.0053",
+    "signals": {
+      "momentum": 0.005281,
+      "volume_spike": 1.26,
+      "vwap": 166.3001,
+      "vwap_deviation": 0.017073,
+      "spread": 0.0183,
+      "current_price": 169.14,
+      "bid": 169.13,
+      "ask": 169.15,
+      "momentum_normalized": 0.47,
+      "volume_spike_normalized": -0.01,
+      "vwap_deviation_normalized": 2.66
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:12:03.057974",
+    "action": "DECISION",
+    "symbol": "JKHY",
+    "decision": "BUY",
+    "score": 9.44,
+    "reason": "score_9.4_momentum_0.0053"
+  },
+  {
+    "timestamp": "2026-04-26T15:12:03.223286",
+    "action": "RISK_CHECK",
+    "symbol": "JKHY",
+    "approved": false,
+    "reason": "total_exposure_exceeds_limit",
+    "quantity": 50,
+    "price": 169.14
+  },
+  {
+    "timestamp": "2026-04-26T15:12:03.418515",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 90846.35,
+      "portfolio_value": 99960.92,
+      "total_pnl": -39.08,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -39.08,
+      "positions": {
+        "PG": {
+          "quantity": 50.0,
+          "avg_price": 183.07,
+          "current_price": 182.29,
+          "unrealized_pnl": -39.08
+        }
+      },
+      "position_count": 1
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:12:03.659145",
+    "action": "PORTFOLIO_UPDATE",
+    "portfolio_summary": {
+      "cash": 58080.62,
+      "portfolio_value": 99523.64,
+      "total_pnl": -69.4,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -69.4,
+      "positions": {
+        "JBHT": {
+          "quantity": 50.0,
+          "avg_price": 136.36,
+          "current_price": 136.21,
+          "unrealized_pnl": -7.55
+        },
+        "CRM": {
+          "quantity": 50.0,
+          "avg_price": 196.22,
+          "current_price": 192.87,
+          "unrealized_pnl": -167.23
+        },
+        "INTC": {
+          "quantity": 50.0,
+          "avg_price": 138.82,
+          "current_price": 136.73,
+          "unrealized_pnl": -104.57
+        },
+        "AVGO": {
+          "quantity": 50.0,
+          "avg_price": 109.52,
+          "current_price": 107.82,
+          "unrealized_pnl": -85.1
+        },
+        "EXLS": {
+          "quantity": 50.0,
+          "avg_price": 131.31,
+          "current_price": 130.46,
+          "unrealized_pnl": -42.52
+        },
+        "SHOP": {
+          "quantity": 50.0,
+          "avg_price": 126.17,
+          "current_price": 124.78,
+          "unrealized_pnl": -69.4
+        }
+      },
+      "position_count": 6
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:12:05.714837",
+    "action": "SIGNAL",
+    "symbol": "MSTR",
+    "score": 11.11,
+    "reason": "score_11.1_momentum_0.0094",
+    "signals": {
+      "momentum": 0.009379,
+      "volume_spike": 0.1,
+      "vwap": 451.0162,
+      "vwap_deviation": 0.01439,
+      "spread": 0.0761,
+      "current_price": 457.51,
+      "bid": 457.47,
+      "ask": 457.54,
+      "momentum_normalized": 2.11,
+      "volume_spike_normalized": -0.87,
+      "vwap_deviation_normalized": 3.2
+    }
+  },
+  {
+    "timestamp": "2026-04-26T15:12:05.904190",
+    "action": "DECISION",
+    "symbol": "MSTR",
+    "decision": "BUY",
+    "score": 11.11,
+    "reason": "score_11.1_momentum_0.0094"
+  }
+]-50.59,
+      "realized_pnl": 0.0,
+      "unrealized_pnl": -50.59,
+      "positions": {
+        "PG": {
+          "quantity": 50.0,
+          "avg_price": 183.07,
+          "current_price": 182.06,
+          "unrealized_pnl": -50.59
+        }
+      },
+      "position_count": 1
+    }
   }
 ]

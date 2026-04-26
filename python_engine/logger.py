@@ -43,8 +43,8 @@ class TradeLogger:
             with open(self.csv_file, 'w', newline='') as f:
                 writer = csv.writer(f)
                 writer.writerow([
-                    'timestamp', 'action', 'symbol', 'decision', 'quantity', 'price', 
-                    'reason', 'score', 'cash_before', 'cash_after', 
+                    'timestamp', 'action', 'symbol', 'decision', 'mode', 'quantity', 'price', 
+                    'result', 'reason', 'score', 'cash_before', 'cash_after', 
                     'portfolio_value', 'pnl_realized', 'pnl_unrealized'
                 ])
     
@@ -123,7 +123,7 @@ class TradeLogger:
     
     def log_execution(self, symbol: str, quantity: float, price: float, 
                      cash_before: float, cash_after: float, portfolio_value: float,
-                     pnl_realized: float, pnl_unrealized: float) -> None:
+                     pnl_realized: float, pnl_unrealized: float, mode: str, result: str, decision: Optional[str] = None) -> None:
         """
         Log trade execution.
         
@@ -136,13 +136,18 @@ class TradeLogger:
             portfolio_value: Total portfolio value after trade
             pnl_realized: Realized PnL
             pnl_unrealized: Unrealized PnL
+            mode: Execution mode (paper/live)
+            result: Execution result (filled/rejected)
         """
         entry = {
             'timestamp': datetime.now().isoformat(),
             'action': 'EXECUTION',
             'symbol': symbol,
+            'decision': decision,
+            'mode': mode,
             'quantity': round(quantity, 2),
             'price': round(price, 2),
+            'result': result,
             'cash_before': round(cash_before, 2),
             'cash_after': round(cash_after, 2),
             'portfolio_value': round(portfolio_value, 2),
@@ -211,9 +216,11 @@ class TradeLogger:
                     entry.get('timestamp', ''),
                     entry.get('action', ''),
                     entry.get('symbol', ''),
-                    entry.get('decision', ''),  # Add decision field
+                    entry.get('decision', ''),
+                    entry.get('mode', ''),
                     entry.get('quantity', ''),
                     entry.get('price', ''),
+                    entry.get('result', ''),
                     entry.get('reason', ''),
                     entry.get('score', ''),
                     entry.get('cash_before', ''),

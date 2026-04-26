@@ -200,17 +200,21 @@ class PortfolioManager:
         cost = quantity * price
         return self.cash >= cost
     
-    def get_position_size_limit(self, price: float, total_capital: float) -> float:
+    def get_position_size_limit(self, price: float, total_capital: float, max_position_pct: float = None) -> float:
         """
         Calculate maximum position size based on risk limits.
         
         Args:
             price: Stock price
             total_capital: Current total portfolio value
+            max_position_pct: Optional override for maximum position percentage
             
         Returns:
             Maximum quantity allowed
         """
-        from config import RISK_MAX_POSITION_SIZE
-        max_position_value = total_capital * RISK_MAX_POSITION_SIZE
+        if max_position_pct is None:
+            from config import RISK_MAX_POSITION_SIZE
+            max_position_pct = RISK_MAX_POSITION_SIZE
+
+        max_position_value = total_capital * max_position_pct
         return max_position_value / price if price > 0 else 0.0

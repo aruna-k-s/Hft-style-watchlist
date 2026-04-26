@@ -15,22 +15,25 @@ class RiskManager:
     Has final authority over trade execution.
     """
     
-    def __init__(self, config, portfolio_manager):
+    def __init__(self, config, portfolio_manager, trading_config=None):
         """
         Initialize risk manager.
         
         Args:
             config: Configuration module
             portfolio_manager: Portfolio manager instance
+            trading_config: Structured trading config from YAML
         """
         self.config = config
         self.portfolio = portfolio_manager
+        self.trading_config = trading_config
         
         # Stop loss tracking per position
         self.stop_losses: Dict[str, float] = {}  # symbol -> stop_price
         
         # Daily loss tracking
-        self.daily_start_value = self.config.INITIAL_CASH
+        initial_cash = self.trading_config.capital.initial_cash if self.trading_config else self.config.INITIAL_CASH
+        self.daily_start_value = initial_cash
         self.daily_start_date = datetime.now().date()
         
     def validate_trade(self, symbol: str, decision: str, quantity: float, 
@@ -80,14 +83,16 @@ class RiskManager:
             return False, "insufficient_cash"
         
         # Check position size limit
-        max_quantity = self.portfolio.get_position_size_limit(price, current_portfolio_value)
+        max_position_pct = self.trading_config.risk.max_position_size_pct if self.trading_config else self.config.RISK_MAX_POSITION_SIZE
+        max_quantity = self.portfolio.get_position_size_limit(price, current_portfolio_value, max_position_pct)
         if quantity > max_quantity:
             return False, f"position_size_exceeds_limit_{max_quantity:.0f}"
         
         # Check total exposure limit
         current_exposure = sum(pos['quantity'] * price for pos in self.portfolio.positions.values())
         new_exposure = current_exposure + trade_value
-        max_exposure = current_portfolio_value * self.config.RISK_MAX_TOTAL_EXPOSURE
+        max_exposure_pct = self.trading_config.risk.max_total_exposure_pct if self.trading_config else self.config.RISK_MAX_TOTAL_EXPOSURE
+        max_exposure = current_portfolio_value * max_exposure_pct
         
         if new_exposure > max_exposure:
             return False, "total_exposure_exceeds_limit"
@@ -144,7 +149,8 @@ class RiskManager:
             symbol: Stock symbol
             entry_price: Position entry price
         """
-        stop_price = entry_price * (1 - self.config.RISK_STOP_LOSS_PERCENT)
+        stop_pct = self.trading_config.risk.stop_loss_pct if self.trading_config else self.config.RISK_STOP_LOSS_PERCENT
+        stop_price = entry_price * (1 - stop_pct)
         self.stop_losses[symbol] = stop_price
     
     def remove_stop_loss(self, symbol: str) -> None:
@@ -174,8 +180,9 @@ class RiskManager:
         # Calculate current loss
         current_value = self.portfolio.get_portfolio_value({})
         daily_loss = (self.daily_start_value - current_value) / self.daily_start_value
+        daily_loss_limit_pct = self.trading_config.risk.daily_loss_limit_pct if self.trading_config else self.config.RISK_DAILY_LOSS_LIMIT
         
-        return daily_loss > self.config.RISK_DAILY_LOSS_LIMIT
+        return daily_loss > daily_loss_limit_pct
     
     def get_risk_summary(self) -> Dict:
         """
@@ -186,11 +193,14 @@ class RiskManager:
         """
         current_value = self.portfolio.get_portfolio_value({})
         daily_loss = (self.daily_start_value - current_value) / self.daily_start_value
-        
+        daily_loss_limit_pct = self.trading_config.risk.daily_loss_limit_pct if self.trading_config else self.config.RISK_DAILY_LOSS_LIMIT
+        max_position_pct = self.trading_config.risk.max_position_size_pct if self.trading_config else self.config.RISK_MAX_POSITION_SIZE
+        max_exposure_pct = self.trading_config.risk.max_total_exposure_pct if self.trading_config else self.config.RISK_MAX_TOTAL_EXPOSURE
+
         return {
             'daily_loss_percent': round(daily_loss * 100, 2),
-            'daily_loss_limit_percent': round(self.config.RISK_DAILY_LOSS_LIMIT * 100, 2),
+            'daily_loss_limit_percent': round(daily_loss_limit_pct * 100, 2),
             'stop_losses': self.stop_losses.copy(),
-            'max_position_size_percent': round(self.config.RISK_MAX_POSITION_SIZE * 100, 2),
-            'max_total_exposure_percent': round(self.config.RISK_MAX_TOTAL_EXPOSURE * 100, 2)
+            'max_position_size_percent': round(max_position_pct * 100, 2),
+            'max_total_exposure_percent': round(max_exposure_pct * 100, 2)
         }

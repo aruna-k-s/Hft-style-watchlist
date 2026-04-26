@@ -4,7 +4,96 @@
 #include <iostream>
 #include <stdexcept>
 #include <unordered_map>
+#include <cstdlib>
 #include "tick.h"
+
+static constexpr const char* DEFAULT_EXTERNAL_ENDPOINT = "tcp://localhost:5556";
+
+bool parse_tick_message(const zmq::message_t& msg, Tick& tick) {
+    const char* data = static_cast<const char*>(msg.data());
+    size_t size = msg.size();
+
+    if (size < 1 + sizeof(double) * 3 + sizeof(uint64_t) * 2) {
+        return false;
+    }
+
+    size_t offset = 0;
+    uint8_t symbol_len = static_cast<uint8_t>(data[offset]);
+    offset += 1;
+
+    if (size < 1 + symbol_len + sizeof(double) * 3 + sizeof(uint64_t) * 2) {
+        return false;
+    }
+
+    tick.symbol = std::string(data + offset, symbol_len);
+    offset += symbol_len;
+
+    std::memcpy(&tick.price, data + offset, sizeof(tick.price));
+    offset += sizeof(tick.price);
+    std::memcpy(&tick.volume, data + offset, sizeof(tick.volume));
+    offset += sizeof(tick.volume);
+    std::memcpy(&tick.bid, data + offset, sizeof(tick.bid));
+    offset += sizeof(tick.bid);
+    std::memcpy(&tick.ask, data + offset, sizeof(tick.ask));
+    offset += sizeof(tick.ask);
+    std::memcpy(&tick.timestamp, data + offset, sizeof(tick.timestamp));
+
+    return true;
+}
+
+class ZeroMQSubscriber {
+private:
+    zmq::context_t context;
+    zmq::socket_t socket;
+    bool is_connected;
+
+public:
+    ZeroMQSubscriber()
+        : context(1),
+          socket(context, zmq::socket_type::sub),
+          is_connected(false)
+    {
+        const char* endpoint = std::getenv("UPSTOX_BRIDGE_ENDPOINT");
+        if (endpoint == nullptr) {
+            endpoint = DEFAULT_EXTERNAL_ENDPOINT;
+        }
+
+        socket.setsockopt(ZMQ_SUBSCRIBE, "", 0);
+        try {
+            socket.connect(endpoint);
+            is_connected = true;
+            std::cout << "ZeroMQ Subscriber connected to " << endpoint << std::endl;
+        } catch (const zmq::error_t& e) {
+            std::cerr << "Failed to connect ZeroMQ subscriber: " << e.what() << std::endl;
+            throw;
+        }
+    }
+
+    ~ZeroMQSubscriber() {
+        try {
+            socket.close();
+        } catch (...) {
+        }
+    }
+
+    bool receive_tick(Tick& tick, int timeout_ms = 100) {
+        if (!is_connected) {
+            return false;
+        }
+
+        zmq::pollitem_t items[] = {{static_cast<void*>(socket), 0, ZMQ_POLLIN, 0}};
+        zmq::poll(items, 1, timeout_ms);
+
+        if (items[0].revents & ZMQ_POLLIN) {
+            zmq::message_t msg;
+            if (socket.recv(msg, zmq::recv_flags::none)) {
+                return parse_tick_message(msg, tick);
+            }
+        }
+
+        return false;
+    }
+};
 
 class ZeroMQPublisher {
 private:
