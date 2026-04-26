@@ -1,0 +1,29 @@
+FROM python:3.11-slim
+
+RUN apt-get update && apt-get install -y \
+    libzmq3-dev \
+    netcat-openbsd \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY bridge_requirements.txt /app/
+RUN pip install --no-cache-dir -r bridge_requirements.txt
+
+COPY marketdata.proto /app/
+COPY marketdata_pb2.py /app/
+COPY bridge_config.py /app/
+COPY login_auth_client.py /app/
+COPY proto_decoder.py /app/
+COPY subscription_manager.py /app/
+COPY token_manager.py /app/
+COPY websocket_client.py /app/
+COPY ws_auth_client.py /app/
+COPY zmq_tick_publisher.py /app/
+COPY upstox_bridge_main.py /app/
+
+EXPOSE 5555
+
+HEALTHCHECK --interval=5s --timeout=3s --retries=5 CMD nc -z localhost 5555 || exit 1
+
+CMD ["python", "upstox_bridge_main.py"]

@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
     libzmq3-dev \
-    libcppzmq-dev \
+    cppzmq-dev \
     pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
@@ -23,7 +23,8 @@ RUN mkdir -p build && cd build && \
 FROM ubuntu:24.04
 
 RUN apt-get update && apt-get install -y \
-    libzmq3 \
+    libzmq5 \
+    netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

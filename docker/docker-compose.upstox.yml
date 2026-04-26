@@ -1,0 +1,59 @@
+services:
+  upstox-bridge:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.bridge
+    container_name: hft-upstox-bridge
+    ports:
+      - "5555:5555"
+    environment:
+      - TZ=UTC
+      - UPSTOX_ACCESS_TOKEN=${UPSTOX_ACCESS_TOKEN:-}
+      - UPSTOX_TOKEN_FILE=${UPSTOX_TOKEN_FILE:-}
+      - UPSTOX_TOKEN_REFRESH_CMD=${UPSTOX_TOKEN_REFRESH_CMD:-}
+      - UPSTOX_CLIENT_ID=${UPSTOX_CLIENT_ID:-}
+      - UPSTOX_CLIENT_SECRET=${UPSTOX_CLIENT_SECRET:-}
+      - UPSTOX_REDIRECT_URI=${UPSTOX_REDIRECT_URI:-}
+      - UPSTOX_AUTH_CODE=${UPSTOX_AUTH_CODE:-}
+      - UPSTOX_AUTH_CODE_FILE=${UPSTOX_AUTH_CODE_FILE:-}
+      - UPSTOX_AUTH_STATE=${UPSTOX_AUTH_STATE:-}
+      - UPSTOX_TOKEN_REQUEST_FOR_INDIVIDUAL=${UPSTOX_TOKEN_REQUEST_FOR_INDIVIDUAL:-}
+      - UPSTOX_NOTIFIER_TOKEN_FILE=${UPSTOX_NOTIFIER_TOKEN_FILE:-}
+      - UPSTOX_TOKEN_REQUEST_WAIT_SECONDS=${UPSTOX_TOKEN_REQUEST_WAIT_SECONDS:-180}
+      - UPSTOX_LOGIN_TIMEOUT_SECONDS=${UPSTOX_LOGIN_TIMEOUT_SECONDS:-10}
+      - UPSTOX_INSTRUMENTS=${UPSTOX_INSTRUMENTS:-}
+      - UPSTOX_MODE=${UPSTOX_MODE:-full}
+      - UPSTOX_SUBSCRIPTION_BATCH_SIZE=${UPSTOX_SUBSCRIPTION_BATCH_SIZE:-100}
+      - UPSTOX_BRIDGE_ZMQ_BIND=tcp://*:5555
+      - UPSTOX_BRIDGE_LOG_LEVEL=${UPSTOX_BRIDGE_LOG_LEVEL:-INFO}
+    restart: unless-stopped
+    networks:
+      - hft-network
+    labels:
+      - "component=bridge"
+      - "service=upstox-bridge"
+
+  signal-engine:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.python
+    container_name: hft-signal-engine
+    environment:
+      - TZ=UTC
+      - ZMQ_ENDPOINT=tcp://upstox-bridge:5555
+      - OUTPUT_FILE=/app/output/watchlist.json
+    depends_on:
+      upstox-bridge:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - hft-network
+    volumes:
+      - ./watchlist_output:/app/output
+    labels:
+      - "component=processing"
+      - "service=signal-engine"
+
+networks:
+  hft-network:
+    driver: bridge

@@ -3,8 +3,10 @@ Configuration file for the watchlist engine.
 All thresholds, weights, and parameters are defined here for easy tuning.
 """
 
+import os
+
 # ZeroMQ Configuration
-ZMQ_ENDPOINT = "tcp://localhost:5555"
+ZMQ_ENDPOINT = os.getenv("ZMQ_ENDPOINT", "tcp://localhost:5555")
 ZMQ_SUBSCRIBE_FILTER = b""  # Subscribe to all messages
 
 # Data Buffer Configuration
@@ -57,7 +59,7 @@ STABILITY_TOP_N = 15  # Consider top 15 for stability check
 # Output Configuration
 WATCHLIST_SIZE = 10  # Top N stocks to display
 REFRESH_INTERVAL_SECONDS = 3  # Update watchlist every 3 seconds
-OUTPUT_FILE = "watchlist.json"
+OUTPUT_FILE = os.getenv("OUTPUT_FILE", "watchlist.json")
 
 # Logging
 ENABLE_DEBUG_LOGGING = False
